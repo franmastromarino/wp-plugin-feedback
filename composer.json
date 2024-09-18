@@ -20,5 +20,14 @@
     "start": "composer install && composer dump-autoload",
     "build": "composer install --no-dev && composer dump-autoload -o --no-dev",
     "format": "vendor/bin/phpcbf src"
+  },
+  "archive": {
+    "exclude": [
+      "/packages",
+      "/tests",
+      "/node_modules",
+      "/.gitignore",
+      "/webpack.config.js"
+    ]
   }
 }

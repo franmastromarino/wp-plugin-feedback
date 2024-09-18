@@ -30,14 +30,16 @@ class Scripts
         if ($pagenow !== 'plugins.php') {
             return;
         }
+
+        $feedback = include plugin_dir_path(__FILE__) . '../build/js/index.asset.php';
     
-        wp_enqueue_style('quadlayers-plugin-feedback', plugins_url('../build/css/style.css', __FILE__), [], '1.0.0');
-        wp_enqueue_script('quadlayers-plugin-feedback', plugins_url('../build/js/index.js', __FILE__), ['wp-element', 'wp-components'], '1.0.0', true);
+        wp_enqueue_style('quadlayers-plugin-feedback', plugins_url('../build/css/style.css', __FILE__), ['wp-components'], '1.0.0');
+        wp_enqueue_script('quadlayers-plugin-feedback', plugins_url('../build/js/index.js', __FILE__), $feedback['dependencies'], '1.0.0', true);
     
         wp_localize_script(
             'quadlayers-plugin-feedback', 
             'quadlayersPluginFeedback', 
-                [
+            [
                     'nonce'     => wp_create_nonce('quadlayers_send_feedback_nonce'),
                     'plugins'   => self::$plugins
                 ]

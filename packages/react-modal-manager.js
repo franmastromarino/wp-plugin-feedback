@@ -28,7 +28,8 @@ const ModalManager = () => {
 			},
 			body: new URLSearchParams({
 				action: 'quadlayers_send_feedback',
-				plugin_slug: plugin.slug,
+				plugin_slug: plugin.pluginSlug,
+				plugin_version: plugin.pluginVersion,
 				feedback_reason: reason,
 				feedback_details: details,
 				is_anonymous: isAnonymous,
@@ -51,6 +52,8 @@ const ModalManager = () => {
 				}
 			})
 			.finally(() => {
+				// Redirect to the deactivation URL
+				window.location.href = plugin.deactivateUrl;
 				setIsSubmitting(false);
 			});
 	};

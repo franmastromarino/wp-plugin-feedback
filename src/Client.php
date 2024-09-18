@@ -26,9 +26,9 @@ class Client
      /**
       * Sends feedback to the server.
       *
-      * @param  bool   $isAnonymous Determines if the feedback is anonymous.
-      * @param  string $feedbackReason      The reason for the feedback.
-      * @param  string $feedbackDetails     Additional details for the feedback.
+      * @param  bool   $isAnonymous     Determines if the feedback is anonymous.
+      * @param  string $feedbackReason  The reason for the feedback.
+      * @param  string $feedbackDetails Additional details for the feedback.
       * @return bool True if the feedback was sent successfully, False otherwise.
       */
     public function sendFeedback(string $feedbackReason = '', string $feedbackDetails = '', $isAnonymous = false) : bool

@@ -1,7 +1,4 @@
-/logs
-/data
 /vendor
 /node_modules
-/build
 .phpunit.result.cache
 .DS_Store

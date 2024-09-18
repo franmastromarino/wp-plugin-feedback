@@ -24,10 +24,13 @@ class Load
 
     public function add(string $plugin_file): void
     {
-        $plugin_slug = dirname( plugin_basename( $plugin_file ) );
+        $plugin_basename = plugin_basename($plugin_file);
 
-        if(!in_array($plugin_slug, self::$plugins)) {
-            array_push(self::$plugins, $plugin_slug);
+        if (! isset(self::$plugins[ $plugin_basename ]) ) {
+            self::$plugins[ $plugin_basename ] = [
+                'slug' => dirname($plugin_basename),
+                'version' => get_plugin_data($plugin_file)['Version'],
+            ];
         }
     }
 
