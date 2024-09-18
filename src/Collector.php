@@ -5,30 +5,26 @@ namespace Vendor\FeedbackClient;
 class Collector
 {
 
-    private string $pluginSlug = '';
-    private string $pluginVersion = '';
+    private string $pluginBase = '';
 
     public function __construct(
-        string $pluginSlug = null,
-        string $pluginVersion = null
+        string $pluginBase = null,
     ) {
-        $this->pluginSlug = $pluginSlug;
-        $this->pluginVersion = $pluginVersion;
+        $this->pluginBase = $pluginBase;
     }
 
     /**
      * Collects the necessary feedback data.
      *
-     * @param  string $pluginSlug    The plugin slug.
-     * @param  string $pluginVersion The plugin version.
-     * @param  bool   $isAnonymous   If true, no personal data is collected.
+     * @param  string $pluginBase  The plugin slug.
+     * @param  bool   $isAnonymous If true, no personal data is collected.
      * @return array The collected data.
      */
     public function collectData(string $feedbackReason, string $feedbackDetails, $isAnonymous = false): array
     {
         $data = [
-            'plugin_slug'        => $this->pluginSlug,
-            'plugin_version'     => $this->pluginVersion,
+            'plugin_slug'        => $this->getPluginSlug(),
+            'plugin_version'     => $this->getPluginVersion(),
             'server_software'    => $_SERVER['SERVER_SOFTWARE'] ?? 'Unknown',
             'server_php_version' => phpversion(),
             'server_mysql_version' => $this->getMySQLVersion(),
@@ -68,5 +64,15 @@ class Collector
         }
 
         return implode(', ', $pluginNames);
+    }
+
+    private function getPluginSlug()
+    {
+        return dirname($this->pluginBase);
+    }
+
+    private function getPluginVersion()
+    {
+        return get_plugin_data($this->pluginBase)['Version'];
     }
 }

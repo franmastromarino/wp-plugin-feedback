@@ -11,14 +11,12 @@ class Client
     /**
      * Constructor to initialize the client with plugin slug and version.
      *
-     * @param string $pluginSlug    The plugin slug.
-     * @param string $pluginVersion The plugin version.
+     * @param string $pluginBase The plugin slug.
      */
     public function __construct(
-        string $pluginSlug,
-        string $pluginVersion
+        string $pluginBase,
     ) {
-        $this->collector = new Collector($pluginSlug, $pluginVersion);
+        $this->collector = new Collector($pluginBase);
         $this->validator = new Validator();
         $this->request = new Request();
     }

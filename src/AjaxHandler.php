@@ -32,19 +32,18 @@ class AjaxHandler
         }
 
         // Validate required fields
-        $pluginSlug = sanitize_text_field($_POST['plugin_slug'] ?? '');
-        $pluginVersion = sanitize_text_field($_POST['plugin_version'] ?? '');
+        $pluginBase = sanitize_text_field($_POST['plugin_base'] ?? '');
         $feedbackReason = sanitize_text_field($_POST['feedback_reason'] ?? '');
         $feedbackDetails = sanitize_textarea_field($_POST['feedback_details'] ?? '');
         $isAnonymous = isset($_POST['is_anonymous']) ? $_POST['is_anonymous'] : false;
 
-        if (empty($pluginSlug)) {
+        if (empty($pluginBase)) {
             wp_send_json_error(['message' => __('Missing required fields.', 'wp-plugin-feedback')], 400);
             return;
         }
         
         // Send feedback (handling anonymous option)
-        $result = (new Client($pluginSlug, $pluginVersion))->sendFeedback($feedbackReason, $feedbackDetails, $isAnonymous);
+        $result = (new Client($pluginBase))->sendFeedback($feedbackReason, $feedbackDetails, $isAnonymous);
 
         if ($result) {
             wp_send_json_success(['message' => __('Feedback submitted successfully.', 'wp-plugin-feedback')]);

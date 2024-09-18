@@ -26,11 +26,8 @@ class Load
     {
         $plugin_basename = plugin_basename($plugin_file);
 
-        if (! isset(self::$plugins[ $plugin_basename ]) ) {
-            self::$plugins[ $plugin_basename ] = [
-                'slug' => dirname($plugin_basename),
-                'version' => get_plugin_data($plugin_file)['Version'],
-            ];
+        if (!in_array($plugin_basename, self::$plugins)) {
+            self::$plugins[] = $plugin_basename;
         }
     }
 
