@@ -28,7 +28,7 @@ const ModalManager = () => {
 			},
 			body: new URLSearchParams({
 				action: 'quadlayers_send_feedback',
-				plugin_basename: plugin.pluginBase,
+				plugin_basename: plugin.pluginBasename,
 				feedback_reason: reason,
 				feedback_details: details,
 				is_anonymous: isAnonymous,

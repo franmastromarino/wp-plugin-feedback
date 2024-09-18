@@ -1,10 +1,10 @@
 import "./react-modal-manager";
 
-function openReactDeactivationModal(pluginBase, deactivateUrl) {
+function openReactDeactivationModal(pluginBasename, deactivateUrl) {
   // Ensure the React modal manager is available globally
   if (typeof ReactModalManager !== "undefined") {
     ReactModalManager.open({
-      pluginBase,
+      pluginBasename,
       deactivateUrl,
     });
   }
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
           event.preventDefault(); // Stop the default deactivation process
           const deactivateUrl = this.getAttribute("href");
           // Trigger the React modal to collect feedback
-          openReactDeactivationModal(pluginBase, deactivateUrl);
+          openReactDeactivationModal(pluginBasename, deactivateUrl);
         });
       }
     }
