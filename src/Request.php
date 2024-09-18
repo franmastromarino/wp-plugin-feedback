@@ -1,6 +1,6 @@
 <?php
 
-namespace Vendor\FeedbackClient;
+namespace QuadLayers\PluginFeedback;
 
 class Request
 {

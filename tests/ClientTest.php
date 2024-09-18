@@ -3,7 +3,7 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use Vendor\FeedbackClient\Client;
+use QuadLayers\PluginFeedback\Client;
 
 class ClientTest extends TestCase
 {

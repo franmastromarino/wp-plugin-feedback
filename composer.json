@@ -8,7 +8,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Vendor\\FeedbackClient\\": "src/"
+      "QuadLayers\\PluginFeedback\\": "src/"
     }
   },
   "require-dev": {
