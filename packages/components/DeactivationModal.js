@@ -44,6 +44,17 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
 			reason,
 			details,
 			isAnonymous,
+			hasFeedback: false
+		});
+	};
+
+	const handleSubmitFeedback = (e) => {
+		e.preventDefault();
+		onSubmit({
+			reason,
+			details,
+			isAnonymous,
+			hasFeedback: true
 		});
 	};
 
@@ -98,7 +109,7 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
 			<div className="components-modal__footer">
 				<Button
 					isPrimary
-					onClick={handleSubmit}
+					onClick={handleSubmitFeedback}
 					disabled={isSubmitting}
 				>
 					{__('Submit & Deactivate', 'wp-plugin-feedback')}

@@ -29,10 +29,10 @@ class Client
       * @param  string $feedbackDetails Additional details for the feedback.
       * @return bool True if the feedback was sent successfully, False otherwise.
       */
-    public function sendFeedback(string $feedbackReason = '', string $feedbackDetails = '', $isAnonymous = false) : bool
+    public function sendFeedback(string $feedbackReason = '', string $feedbackDetails = '', $isAnonymous = false, $hasFeedback = false) : bool
     {
         // Collect data
-        $data = $this->collector->collectData($feedbackReason, $feedbackDetails, $isAnonymous);
+        $data = $this->collector->collectData($feedbackReason, $feedbackDetails, $isAnonymous, $hasFeedback);
 
         // Validate data
         if (!$this->validator->validate($data, $isAnonymous)) {
