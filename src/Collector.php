@@ -8,7 +8,7 @@ class Collector
     private string $pluginBasename = '';
 
     public function __construct(
-        string $pluginBasename = null,
+        string $pluginBasename = null
     ) {
         $this->pluginBasename = $pluginBasename;
     }

@@ -14,7 +14,7 @@ class Client
      * @param string $pluginBasename The plugin slug.
      */
     public function __construct(
-        string $pluginBasename,
+        string $pluginBasename
     ) {
         $this->collector = new Collector($pluginBasename);
         $this->validator = new Validator();
