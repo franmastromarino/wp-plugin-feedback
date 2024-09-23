@@ -74,6 +74,9 @@ class Collector
 
     private function getPluginVersion()
     {
-        return get_plugin_data($this->pluginBasename)['Version'];
+        $pluginData = get_plugin_data(WP_PLUGIN_DIR . '/' . $this->pluginBasename);
+
+        return $pluginData['Version'];
+
     }
 }
