@@ -18,7 +18,7 @@ const ModalManager = () => {
 		},
 	};
 
-	const handleDeactivate = async ({ reason, details, isAnonymous }) => {
+	const handleSubmit = async ({ reason, details, isAnonymous, hasFeedback }) => {
 		setIsSubmitting(true);
 		// Preparar la solicitud fetch
 		fetch(window.ajaxurl, {
@@ -32,6 +32,7 @@ const ModalManager = () => {
 				feedback_reason: reason,
 				feedback_details: details,
 				is_anonymous: isAnonymous,
+				has_feedback: hasFeedback,
 				nonce: window.quadlayersPluginFeedback.nonce,
 			}),
 		})
@@ -62,7 +63,7 @@ const ModalManager = () => {
 			{isModalOpen && (
 				<DeactivationModal
 					onClose={() => setIsModalOpen(false)}
-					onSubmit={handleDeactivate}
+					onSubmit={handleSubmit}
 					isSubmitting={isSubmitting}
 				/>
 			)}

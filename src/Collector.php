@@ -8,7 +8,7 @@ class Collector
     private string $pluginBasename = '';
 
     public function __construct(
-        string $pluginBasename = null,
+        string $pluginBasename = null
     ) {
         $this->pluginBasename = $pluginBasename;
     }
@@ -20,7 +20,7 @@ class Collector
      * @param  bool   $isAnonymous    If true, no personal data is collected.
      * @return array The collected data.
      */
-    public function collectData(string $feedbackReason, string $feedbackDetails, $isAnonymous = false): array
+    public function collectData(string $feedbackReason, string $feedbackDetails, $isAnonymous = false, $hasFeedback = false): array
     {
         $data = [
             'plugin_slug'        => $this->getPluginSlug(),
@@ -37,6 +37,7 @@ class Collector
             'feedback_reason'    => $feedbackReason,
             'feedback_details'   => $feedbackDetails,
             'is_anonymous'       => $isAnonymous,
+            'has_feedback'       => $hasFeedback,
         ];
 
         // If feedback is not anonymous, collect user email
@@ -73,6 +74,9 @@ class Collector
 
     private function getPluginVersion()
     {
-        return get_plugin_data($this->pluginBasename)['Version'];
+        $pluginData = get_plugin_data(WP_PLUGIN_DIR . '/' . $this->pluginBasename);
+
+        return $pluginData['Version'];
+
     }
 }

@@ -36,6 +36,7 @@ class AjaxHandler
         $feedbackReason = sanitize_text_field($_POST['feedback_reason'] ?? '');
         $feedbackDetails = sanitize_textarea_field($_POST['feedback_details'] ?? '');
         $isAnonymous = isset($_POST['is_anonymous']) ? $_POST['is_anonymous'] : false;
+        $hasFeedback = isset($_POST['has_feedback']) ? $_POST['has_feedback'] : false;
 
         if (empty($pluginBasename)) {
             wp_send_json_error(['message' => __('Missing required fields.', 'wp-plugin-feedback')], 400);
@@ -43,7 +44,7 @@ class AjaxHandler
         }
         
         // Send feedback (handling anonymous option)
-        $result = (new Client($pluginBasename))->sendFeedback($feedbackReason, $feedbackDetails, $isAnonymous);
+        $result = (new Client($pluginBasename))->sendFeedback($feedbackReason, $feedbackDetails, $isAnonymous, $hasFeedback);
 
         if ($result) {
             wp_send_json_success(['message' => __('Feedback submitted successfully.', 'wp-plugin-feedback')]);
