@@ -15,6 +15,16 @@ class Request
 
         $body = json_encode($data);
 
+        // Create unique hash to prevent duplicate submissions
+        $hash = md5($body);
+
+        if (get_transient('ql_polugin_feedback_' . $hash)) {
+            return true;
+        }
+
+        // Create a transient with the hash as the key and set the expiration time to 7 days
+        set_transient('ql_polugin_feedback_' . $hash, true, 30 * DAY_IN_SECONDS);
+
         $response = wp_remote_post(
             'https://feedback.quadlayers.com/',
             array(
