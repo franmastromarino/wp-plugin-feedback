@@ -1,1 +1,43 @@
-.custom-deactivation-modal{max-width:500px}.custom-deactivation-modal .components-modal__header{padding:5px 30px 0 30px;height:60px}.custom-deactivation-modal .components-modal__header-heading{display:flex;align-items:center;gap:3px}.custom-deactivation-modal .components-modal__content{margin-top:60px;padding:0 30px 30px;border-top:1px solid #eee}.custom-deactivation-modal .components-modal__content h3{color:#3c434a;margin:20px 0}.custom-deactivation-modal .components-modal__content .components-radio-control{margin:20px 0}.custom-deactivation-modal .components-modal__content .components-radio-control>.components-base-control__field>div{gap:10px}.custom-deactivation-modal .components-modal__footer{display:flex;align-items:center;margin:20px -30px -10px -30px;padding:20px 30px 0 30px;border-top:1px solid #eee;gap:10px}.custom-deactivation-modal .components-modal__footer span:last-child{margin-left:auto}
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@6.11.0_webpack@5.94.0/node_modules/css-loader/dist/cjs.js!./node_modules/.pnpm/sass-loader@13.3.3_webpack@5.94.0/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./packages/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+.custom-deactivation-modal {
+  max-width: 500px;
+}
+.custom-deactivation-modal .components-modal__header {
+  padding: 5px 30px 0 30px;
+  height: 60px;
+}
+.custom-deactivation-modal .components-modal__header-heading {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.custom-deactivation-modal .components-modal__content {
+  margin-top: 60px;
+  padding: 0 30px 30px;
+  border-top: 1px solid #eee;
+}
+.custom-deactivation-modal .components-modal__content h3 {
+  color: #3c434a;
+  margin: 20px 0;
+}
+.custom-deactivation-modal .components-modal__content .components-radio-control {
+  margin: 20px 0;
+}
+.custom-deactivation-modal .components-modal__content .components-radio-control > .components-base-control__field > div {
+  gap: 10px;
+}
+.custom-deactivation-modal .components-modal__footer {
+  display: flex;
+  align-items: center;
+  margin: 20px -30px -10px -30px;
+  padding: 20px 30px 0 30px;
+  border-top: 1px solid #eee;
+  gap: 10px;
+}
+.custom-deactivation-modal .components-modal__footer span:last-child {
+  margin-left: auto;
+}
+
+/*# sourceMappingURL=style.css.map*/
