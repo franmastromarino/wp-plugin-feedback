@@ -91,7 +91,7 @@ const DeactivationModal = ({
     isPrimary: true,
     onClick: handleSubmitFeedback,
     disabled: isSubmitting
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Deactivate', 'wp-plugin-feedback')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Submit & Deactivate', 'wp-plugin-feedback')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     onClick: handleSubmit,
     disabled: isSubmitting
