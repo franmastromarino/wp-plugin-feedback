@@ -24,11 +24,19 @@ class Load
 
     public function add(string $plugin_file): void
     {
-        $plugin_basename = plugin_basename($plugin_file);
+        $pluginBasename = plugin_basename($plugin_file);
 
-        if (!in_array($plugin_basename, self::$plugins)) {
-            self::$plugins[] = $plugin_basename;
+        // Check if the plugin is already in the list
+        if (in_array($pluginBasename, self::$plugins)) {
+            return;
         }
+
+        // Check if the plugin transient exists
+        if (get_transient('ql_plugin_feedback_' . $pluginBasename)) {
+            return;
+        }
+
+        self::$plugins[] = $pluginBasename;
     }
 
     public static function scripts(): void

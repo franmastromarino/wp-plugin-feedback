@@ -42,6 +42,9 @@ class AjaxHandler
             wp_send_json_error(['message' => __('Missing required fields.', 'wp-plugin-feedback')], 400);
             return;
         }
+
+        // Create a transient with the hash as the key and set the expiration time to 7 days
+        set_transient('ql_plugin_feedback_' . $pluginBasename, true, 7 * DAY_IN_SECONDS);
         
         // Send feedback (handling anonymous option)
         $result = (new Client($pluginBasename))->sendFeedback($feedbackReason, $feedbackDetails, $isAnonymous, $hasFeedback);

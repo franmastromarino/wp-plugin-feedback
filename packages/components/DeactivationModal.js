@@ -112,15 +112,15 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
 					onClick={handleSubmitFeedback}
 					disabled={isSubmitting}
 				>
-					{__('Submit & Deactivate', 'wp-plugin-feedback')}
+					{__('Deactivate', 'wp-plugin-feedback')}
 				</Button>
-				<Button
-					isSecondary
+				<a
+					href="#"
 					onClick={handleSubmit}
 					disabled={isSubmitting}
 				>
-					{__('Deactivate', 'wp-plugin-feedback')}
-				</Button>
+					{__('Skip & deactivate', 'wp-plugin-feedback')}
+				</a>
 				{isSubmitting && <Spinner />}
 				<span>
 					<input
