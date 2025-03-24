@@ -19,11 +19,11 @@
 		"@wordpress/stylelint-config": "^21.41.0",
 		"classnames": "^2.5.1",
 		"css-loader": "^6.11.0",
-		"sass-loader": "^13.3.3",
 		"lint-staged": "^13.3.0",
-		"mini-css-extract-plugin": "^2.9.0",
+		"mini-css-extract-plugin": "^2.9.2",
 		"node-sass-glob-importer": "^5.3.3",
-		"webpack": "^5.93.0",
+		"sass-loader": "^13.3.3",
+		"webpack": "^5.98.0",
 		"webpack-remove-empty-scripts": "^0.8.4"
 	},
 	"lint-staged": {
