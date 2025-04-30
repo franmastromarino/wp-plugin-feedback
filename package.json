@@ -46,5 +46,8 @@
 		"**/tsconfig.json": [
 			"npm run lint:tsconfig"
 		]
+	},
+	"dependencies": {
+		"copy-to-clipboard": "^3.3.3"
 	}
 }

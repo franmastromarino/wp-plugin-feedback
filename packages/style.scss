@@ -1,15 +1,19 @@
 .custom-deactivation-modal {
-	max-width: 500px;
+	max-width: 550px;
 
 	.components-modal__header {
 		padding: 5px 30px 0 30px;
 		height: 60px;
+		border-bottom: 1px solid #e5e7eb;
 	}
 
 	.components-modal__header-heading {
 		display: flex;
 		align-items: center;
 		gap: 3px;
+		font-size: 18px;
+		font-weight: 600;
+		color: #1e73be;
 	}
 
 	.components-modal__content {
@@ -21,14 +25,11 @@
 			color: #3c434a;
 			margin: 20px 0;
 		}
-
-		.components-radio-control {
-			margin: 20px 0;
-			> .components-base-control__field {
-				> div {
-					gap: 10px;
-				}
-			}
+		
+		textarea:focus {
+			border-color: #2271b1 !important;
+			box-shadow: 0 0 0 1px #2271b1 !important;
+			outline: 2px solid transparent !important;
 		}
 	}
 
@@ -43,5 +44,34 @@
 		span:last-child {
 			margin-left: auto;
 		}
+	}
+	
+	// Add animation for coupon display
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(10px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	
+	// Button hover effects
+	button.is-primary {
+		transition: transform 0.2s, box-shadow 0.2s;
+		
+		&:hover:not(:disabled) {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+	}
+	
+	// Add a bounce animation for elements that need attention
+	@keyframes bounce {
+		from { transform: translateY(0); }
+		to { transform: translateY(-10px); }
+	}
+	
+	// Add a pulse animation for elements that need attention
+	@keyframes pulse {
+		0% { transform: scale(1); }
+		50% { transform: scale(1.1); }
+		100% { transform: scale(1); }
 	}
 }
