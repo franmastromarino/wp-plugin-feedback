@@ -746,15 +746,15 @@ const DeactivationModal = ({
           >
             <span
               style={{
-                color: wordCount >= 5 ? "#4CAF50" : "#666",
+                color: wordCount >= 4 ? "#4CAF50" : "#666",
               }}
             >
               {sprintf(__("%d words", "wp-plugin-feedback"), wordCount)}
             </span>
-            {wordCount < 5 && (
-              <span>
+            {wordCount < 4 && (
+              <span style={{ color: "#FF0000" }}>
                 {__(
-                  "Please provide at least 5 words of feedback",
+                  "Please provide at least 4 words of feedback",
                   "wp-plugin-feedback"
                 )}
               </span>
@@ -770,7 +770,7 @@ const DeactivationModal = ({
             <input
               type="checkbox"
               name="isAnonymous"
-              onChange={(e) => setIsAnonymous(e.target.value)}
+              onChange={(e) => setIsAnonymous(e.target.checked)}
               checked={isAnonymous}
             />
             <label
@@ -834,7 +834,7 @@ const DeactivationModal = ({
             <Button
               isPrimary
               onClick={handleSubmitFeedback}
-              disabled={isSubmitting || (activePage === 2 && wordCount < 5)}
+              disabled={isSubmitting || (activePage === 2 && wordCount < 4)}
               style={{
                 fontWeight: "bold",
               }}
