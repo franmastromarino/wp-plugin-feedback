@@ -15,8 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Loop through each valid plugin slug
-  window.quadlayersPluginFeedback.plugins.forEach((pluginBasename) => {
+  // Loop through each plugin data object
+  Object.values(window.quadlayersPluginFeedback.plugins).forEach((pluginData) => {
+    const pluginBasename = pluginData.plugin;
+    
     // Query the row that matches the valid plugin slug using data-slug attribute
     const pluginRow = document.querySelector(
       `#the-list tr[data-plugin="${pluginBasename}"]`

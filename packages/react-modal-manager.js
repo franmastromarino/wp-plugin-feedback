@@ -17,6 +17,19 @@ const ModalManager = () => {
       setPlugin(null);
     },
   };
+  
+  // Get plugin options from the global object
+  const getPluginOptions = () => {
+    if (!plugin || !plugin.pluginBasename) {
+      return {};
+    }
+    
+    // Find the plugin data in the global object
+    const pluginData = window.quadlayersPluginFeedback.plugins[plugin.pluginBasename];
+    
+    // Return plugin options or empty object if not found
+    return pluginData && pluginData.options ? pluginData.options : {};
+  };
 
   const handleSubmit = async ({
     reason,
@@ -70,6 +83,7 @@ const ModalManager = () => {
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
+          options={getPluginOptions()}
         />
       )}
     </>

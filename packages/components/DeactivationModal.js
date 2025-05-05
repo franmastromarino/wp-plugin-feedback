@@ -12,12 +12,13 @@ import {
   TextareaControl,
   CheckboxControl,
   Spinner,
+  IconButton,
 } from "@wordpress/components";
 import copy from "copy-to-clipboard";
 
 const FEEDBACK_OPTIONS = [
   {
-    label: __("The plugin isn’t working as expected.", "wp-plugin-feedback"),
+    label: __("The plugin isn't working as expected.", "wp-plugin-feedback"),
     value: "not_working",
   },
   {
@@ -38,10 +39,17 @@ const FEEDBACK_OPTIONS = [
   },
 ];
 
-const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
+const DeactivationModal = ({
+  onClose,
+  onSubmit,
+  isSubmitting,
+  options = {},
+}) => {
   const [reason, setReason] = useState("");
   const [details, setDetails] = useState("");
-  const [isAnonymous, setIsAnonymous] = useState(true);
+  const [isAnonymous, setIsAnonymous] = useState(
+    !!options.anonymous_by_default
+  );
   const [activePage, setActivePage] = useState(1);
   const [showCoupon, setShowCoupon] = useState(false);
   const [hasCopied, setHasCopied] = useState(false);
@@ -151,6 +159,47 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
         >
           {__("Thank you for your feedback!", "wp-plugin-feedback")}
         </h2>
+
+        {/* Support link reminder - only show on "not_working" reason if support_link option is provided */}
+        {reason === "not_working" && options.support_link && (
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              padding: "12px 15px",
+              borderRadius: "6px",
+              border: "1px solid #c2e0ff",
+              marginBottom: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px",
+              maxWidth: "400px",
+              margin: "0 auto 20px",
+            }}
+          >
+            <span style={{ fontSize: "22px" }}>📋</span>
+            <p style={{ margin: 0, fontSize: "14px", textAlign: "left" }}>
+              {__(
+                "Remember you can always get help at our ",
+                "wp-plugin-feedback"
+              )}
+              <a
+                href={options.support_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "#1e73be",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                }}
+              >
+                {__("support center", "wp-plugin-feedback")}
+              </a>
+              {__(" if you change your mind.", "wp-plugin-feedback")}
+            </p>
+          </div>
+        )}
+
         <p
           style={{
             marginBottom: "25px",
@@ -293,48 +342,69 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
             borderRadius: "6px",
             marginBottom: "20px",
             border: "1px solid #c2e0ff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
             boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             // transition: "all 0.5s ease",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "8px",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "26px",
-                marginRight: "10px",
-              }}
-            >
-              🎁
-            </div>
+          <div>
             <p
               style={{
                 fontWeight: "bold",
-                margin: 0,
+                margin: "0 0 5px 0",
                 fontSize: "16px",
                 color: "#1e73be",
               }}
             >
               {__("Share Your Thoughts & Get 20% OFF!", "wp-plugin-feedback")}
             </p>
-          </div>
-          <p
-            style={{
-              margin: "0",
-              fontSize: "14px",
-              lineHeight: "1.5",
-            }}
-          >
-            {__(
-              "Take a moment to share your feedback and receive a 20% discount on any of our premium plans!.",
-              "wp-plugin-feedback"
+            <p
+              style={{
+                margin: "0",
+                fontSize: "14px",
+                lineHeight: "1.5",
+              }}
+            >
+              {__(
+                "Take a moment to share your feedback and receive a 20% discount on any of our premium plans.",
+                "wp-plugin-feedback"
+              )}
+            </p>
+
+            {/* Support link banner - only show if support_link option is provided */}
+            {options.support_link && (
+              <div
+                style={{
+                  marginTop: "10px",
+                  paddingTop: "10px",
+                  borderTop: "1px dashed #c2e0ff",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ fontSize: "18px", marginRight: "10px" }}>🛟</div>
+                <p style={{ margin: 0, fontSize: "13px", lineHeight: "1.4" }}>
+                  {__("Need help? Visit our ", "wp-plugin-feedback")}
+                  <a
+                    href={options.support_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: "#1e73be",
+                      fontWeight: "bold",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {__("support center", "wp-plugin-feedback")}
+                  </a>
+                  {__(" before deactivating.", "wp-plugin-feedback")}
+                </p>
+              </div>
             )}
-          </p>
+          </div>
+          <span style={{ fontSize: "24px", paddingLeft: "20px" }}>🎁</span>
         </div>
 
         <div
@@ -386,14 +456,6 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
                 }}
                 onClick={() => {
                   setReason(option.value);
-                  if (option.value === "need_help") {
-                    setDetails(
-                      __(
-                        "Please describe what you need help with, and we'll get back to you shortly.",
-                        "wp-plugin-feedback"
-                      )
-                    );
-                  }
                 }}
               >
                 <div
@@ -444,6 +506,7 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            flexWrap: "wrap",
             borderTop: "1px solid #eaeff4",
             padding: "15px 0 0",
             marginTop: "20px",
@@ -456,35 +519,50 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
             onClick={handleSubmitFeedback}
             disabled={isSubmitting || !reason}
             style={{
-              // backgroundColor: reason ? "#2271b1" : "#ccc",
-              // fontSize: "14px",
-              // padding: "8px 18px",
               fontWeight: "bold",
-              // borderRadius: "6px",
-              // border: "none",
-              // cursor: reason ? "pointer" : "not-allowed",
-              // boxShadow: reason ? "0 2px 4px rgba(0, 0, 0, 0.1)" : "none",
-              // transition: "all 0.2s ease",
             }}
           >
             {__("Continue", "wp-plugin-feedback")}
           </Button>
-          {!isSubmitting && (
-            <a
-              href="#"
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              style={{
-                color: "#a0a5aa",
-                textDecoration: "none",
-                fontSize: "13px",
-                // transition: "color 0.2s ease",
-              }}
-            >
-              {__("Skip & deactivate", "wp-plugin-feedback")}
-            </a>
-          )}
-          {isSubmitting && <Spinner />}
+
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {/* Support link - always visible if provided */}
+            {options.support_link && !isSubmitting && (
+              <a
+                href={options.support_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "#2271b1",
+                  textDecoration: "none",
+                  fontSize: "13px",
+                  marginRight: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ fontSize: "15px", marginRight: "5px" }}>🛟</span>
+                {__("Get support", "wp-plugin-feedback")}
+              </a>
+            )}
+
+            {/* Skip & deactivate link */}
+            {!isSubmitting && (
+              <a
+                href="#"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                style={{
+                  color: "#a0a5aa",
+                  textDecoration: "none",
+                  fontSize: "13px",
+                }}
+              >
+                {__("Skip & deactivate", "wp-plugin-feedback")}
+              </a>
+            )}
+            {isSubmitting && <Spinner />}
+          </div>
         </div>
       </>
     );
@@ -553,8 +631,38 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
                 "wp-plugin-feedback"
               )}
             </p>
+            {/* Support link banner - only show if support_link option is provided */}
+            {options.support_link && reason === "not_working" && (
+              <div
+                style={{
+                  marginTop: "10px",
+                  paddingTop: "10px",
+                  borderTop: "1px dashed #c2e0ff",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ fontSize: "18px", marginRight: "10px" }}>🛟</div>
+                <p style={{ margin: 0, fontSize: "13px", lineHeight: "1.4" }}>
+                  {__("Need help? Visit our ", "wp-plugin-feedback")}
+                  <a
+                    href={options.support_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: "#1e73be",
+                      fontWeight: "bold",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {__("support center", "wp-plugin-feedback")}
+                  </a>
+                  {__(" before deactivating.", "wp-plugin-feedback")}
+                </p>
+              </div>
+            )}
           </div>
-          <span style={{ fontSize: "24px" }}>📝</span>
+          <span style={{ fontSize: "24px", paddingLeft: "20px" }}>📝</span>
         </div>
 
         <div
@@ -679,85 +787,114 @@ const DeactivationModal = ({ onClose, onSubmit, isSubmitting }) => {
             </label>
           </div>
         </div>
-
-        <p
-          style={{
-            fontSize: "12px",
-            color: "#666",
-            margin: "15px 0",
-            lineHeight: "1.5",
-          }}
-        >
-          {createInterpolateElement(
-            __(
-              "By submitting feedback, you agree to our <a>Privacy Policy</a>.",
-              "wp-plugin-feedback"
-            ),
-            {
-              a: (
-                <a
-                  href="https://quadlayers.com/legal/privacy-policy/?utm_source=wp-plugin-feedback&utm_medium=modal&utm_campaign=deactivation"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    color: "#2271b1",
-                    textDecoration: "none",
-                    borderBottom: "1px dotted #2271b1",
-                  }}
-                />
+        {!isAnonymous && (
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#666",
+              margin: "15px 0",
+              lineHeight: "1.5",
+            }}
+          >
+            {createInterpolateElement(
+              __(
+                "By submitting feedback, you agree to our <a>Privacy Policy</a>.",
+                "wp-plugin-feedback"
               ),
-            }
-          )}
-        </p>
-
+              {
+                a: (
+                  <a
+                    href="https://quadlayers.com/legal/privacy-policy/?utm_source=wp-plugin-feedback&utm_medium=modal&utm_campaign=deactivation"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: "#2271b1",
+                      textDecoration: "none",
+                      borderBottom: "1px dotted #2271b1",
+                    }}
+                  />
+                ),
+              }
+            )}
+          </p>
+        )}
         <div
           className="components-modal__footer"
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            flexWrap: "wrap",
             borderTop: "1px solid #eaeff4",
             padding: "15px 0 0",
             marginTop: "10px",
           }}
         >
-          <Button
-            isPrimary
-            onClick={handleSubmitFeedback}
-            disabled={isSubmitting || (activePage === 2 && wordCount < 5)}
-            style={{
-              // backgroundColor: "#2271b1",
-              // fontSize: "14px",
-              // padding: "8px 18px",
-              fontWeight: "bold",
-              // borderRadius: "6px",
-              // border: "none",
-              // cursor: "pointer",
-              // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-              // transition: "all 0.2s ease",
-            }}
-          >
-            {__("Submit & Get 20% Discount", "wp-plugin-feedback")}
-          </Button>
-          {!isSubmitting && (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Button
-              icon={<span className="dashicons dashicons-arrow-left-alt" />}
-              isSecondary
-              onClick={() => setActivePage(1)}
+              isPrimary
+              onClick={handleSubmitFeedback}
+              disabled={isSubmitting || (activePage === 2 && wordCount < 5)}
               style={{
                 fontWeight: "bold",
-                // fontSize: "13px",
-                // marginLeft: "10px",
-                // padding: "6px 12px",
-                // color: "#2271b1",
-                // backgroundColor: "transparent",
-                // border: "none",
               }}
             >
-              {__("Back", "wp-plugin-feedback")}
+              {__("Submit & Get 20% Discount", "wp-plugin-feedback")}
             </Button>
-          )}
-          {isSubmitting && <Spinner />}
+
+            {!isSubmitting && (
+              <IconButton
+                icon={<span className="dashicons dashicons-arrow-left-alt" />}
+                isSecondary
+                onClick={() => setActivePage(1)}
+              ></IconButton>
+            )}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: isSubmitting ? "10px" : "0",
+            }}
+          >
+            {/* Support link - always visible if provided */}
+            {options.support_link && !isSubmitting && (
+              <a
+                href={options.support_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "#2271b1",
+                  textDecoration: "none",
+                  fontSize: "13px",
+                  marginRight: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ fontSize: "15px", marginRight: "5px" }}>🛟</span>
+                {__("Get support", "wp-plugin-feedback")}
+              </a>
+            )}
+
+            {/* Skip & deactivate link */}
+            {!isSubmitting && (
+              <a
+                href="#"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                style={{
+                  color: "#a0a5aa",
+                  textDecoration: "none",
+                  fontSize: "13px",
+                }}
+              >
+                {__("Skip & deactivate", "wp-plugin-feedback")}
+              </a>
+            )}
+            {isSubmitting && <Spinner />}
+          </div>
         </div>
       </>
     );

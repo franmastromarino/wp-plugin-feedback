@@ -7,6 +7,7 @@ class Load
 
     public static $instance;
     public static $plugins = array();
+    public static $options = array();
 
     private function __construct()
     {
@@ -22,7 +23,7 @@ class Load
         return self::$instance;
     }
 
-    public function add(string $plugin_file): void
+    public function add(string $plugin_file, array $options = []): void
     {
         $pluginBasename = plugin_basename($plugin_file);
 
@@ -37,12 +38,13 @@ class Load
         }
 
         self::$plugins[] = $pluginBasename;
+        self::$options[$pluginBasename] = $options;
     }
 
     public static function scripts(): void
     {
         // Enqueue the scripts for the deactivation survey
-        Scripts::instance(self::$plugins);
+        Scripts::instance(self::$plugins, self::$options);
     }
 
     public static function ajax(): void
