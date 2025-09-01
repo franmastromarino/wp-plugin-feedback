@@ -3,8 +3,7 @@
   "description": "Process plugin feedback client.",
   "type": "project",
   "require": {
-    "php": ">=7.4",
-    "monolog/monolog": "^2.0"
+    "php": ">=7.2"
   },
   "autoload": {
     "psr-4": {

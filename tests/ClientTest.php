@@ -12,9 +12,9 @@ class ClientTest extends TestCase
      */
     public function testSendFeedbackAnonymous()
     {
-        // Initialize the client with the first plugin slug and version
-        $client = new Client('test-plugin-slug-1', '1.0.0');
-        $result = $client->sendFeedback(true);  // Send anonymous feedback
+        // Initialize the client with plugin basename
+        $client = new Client('test-plugin-slug-1/test-plugin-slug-1.php');
+        $result = $client->sendFeedback('', '', true);  // Send anonymous feedback
         $this->assertTrue($result);
     }
 
@@ -23,9 +23,9 @@ class ClientTest extends TestCase
      */
     public function testSendFeedbackNonAnonymous()
     {
-        // Initialize the client with the first plugin slug and version
-        $client = new Client('test-plugin-slug-1', '1.0.0');
-        $result = $client->sendFeedback(false);  // Send feedback with personal data
+        // Initialize the client with plugin basename
+        $client = new Client('test-plugin-slug-1/test-plugin-slug-1.php');
+        $result = $client->sendFeedback('', '', false);  // Send feedback with personal data
         $this->assertTrue($result);
     }
 
@@ -35,13 +35,13 @@ class ClientTest extends TestCase
     public function testSendFeedbackForMultiplePlugins()
     {
         // Initialize the client for the first plugin
-        $client1 = new Client('test-plugin-slug-1', '1.0.0');
-        $result1 = $client1->sendFeedback(true);  // Send anonymous feedback
+        $client1 = new Client('test-plugin-slug-1/test-plugin-slug-1.php');
+        $result1 = $client1->sendFeedback('', '', true);  // Send anonymous feedback
         $this->assertTrue($result1);
 
         // Initialize the client for the second plugin
-        $client2 = new Client('test-plugin-slug-2', '2.0.0');
-        $result2 = $client2->sendFeedback(false);  // Send feedback with personal data
+        $client2 = new Client('test-plugin-slug-2/test-plugin-slug-2.php');
+        $result2 = $client2->sendFeedback('', '', false);  // Send feedback with personal data
         $this->assertTrue($result2);
     }
 
@@ -51,13 +51,13 @@ class ClientTest extends TestCase
     public function testSendFeedbackForSamePluginDifferentVersions()
     {
         // Initialize the client for the first version of the plugin
-        $client1 = new Client('test-plugin-slug-1', '1.0.0');
-        $result1 = $client1->sendFeedback(true);  // Send anonymous feedback
+        $client1 = new Client('test-plugin-slug-1/test-plugin-slug-1.php');
+        $result1 = $client1->sendFeedback('', '', true);  // Send anonymous feedback
         $this->assertTrue($result1);
 
         // Initialize the client for a different version of the same plugin
-        $client2 = new Client('test-plugin-slug-1', '1.1.0');
-        $result2 = $client2->sendFeedback(false);  // Send feedback with personal data
+        $client2 = new Client('test-plugin-slug-1/test-plugin-slug-1.php');
+        $result2 = $client2->sendFeedback('', '', false);  // Send feedback with personal data
         $this->assertTrue($result2);
     }
 }
